@@ -1,0 +1,36 @@
+# Dependencies
+frontend/node_modules/
+backend/.venv/
+ai/.venv/
+
+# Build outputs
+frontend/.next/
+frontend/out/
+backend/__pycache__/
+backend/app/__pycache__/
+backend/app/**/__pycache__/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Docker volumes (if persisted locally)
+postgres_data/
+redis_data/
+minio_data/
+ai_models/

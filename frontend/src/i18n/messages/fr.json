@@ -1,0 +1,212 @@
+{
+  "metadata": {
+    "title": "Makhtout — Reconnaissance de manuscrits arabes/français",
+    "description": "Plateforme IA de reconnaissance de manuscrits arabes et français. 100% locale, sécurisée et pensée pour le Maghreb.",
+    "keywords": "OCR arabe, HTR, reconnaissance manuscrits, transcription arabe, numérisation archives, IA locale, Algérie, Maghreb"
+  },
+  "nav": {
+    "home": "Accueil",
+    "features": "Fonctionnalités",
+    "pricing": "Tarifs",
+    "login": "Connexion",
+    "register": "Inscription",
+    "logout": "Déconnexion",
+    "dashboard": "Tableau de bord",
+    "startFree": "Essai gratuit"
+  },
+  "hero": {
+    "badge": "Propulsé par l'IA — 100% local",
+    "title": "Lisez vos manuscrits arabes et français en quelques secondes",
+    "description": "Makhtout transforme vos documents manuscrits, archives et registres en texte éditable. Sécurité maximale : vos données ne quittent jamais votre serveur.",
+    "ctaPrimary": "Tester gratuitement",
+    "ctaSecondary": "Voir la démo"
+  },
+  "features": {
+    "title": "Une IA qui pense comme un paléographe",
+    "subtitle": "Plus qu'un simple OCR : Makhtout combine reconnaissance machine, analyse humaine et compréhension du contexte.",
+    "machine": {
+      "title": "Mode Machine",
+      "description": "OCR rapide pour les documents imprimés ou manuscrits lisibles. Idéal pour les gros volumes."
+    },
+    "human": {
+      "title": "Mode Humain-like",
+      "description": "HTR avancé qui imite la lecture humaine pour les écritures difficiles, stylées ou anciennes."
+    },
+    "words": {
+      "title": "Par mots",
+      "description": "Segmentation et reconnaissance mot par mot avec score de confiance individuel."
+    },
+    "letters": {
+      "title": "Par lettres",
+      "description": "Analyse caractère par caractère pour détecter les ambiguïtés dans les ligatures arabes."
+    },
+    "context": {
+      "title": "Par contexte",
+      "description": "Le modèle de langage devine et corrige les mots mal lus en comprenant le sens de la phrase."
+    },
+    "correction": {
+      "title": "Correction collaborative",
+      "description": "Vos utilisateurs corrigent, vous validez. Seules les corrections approuvées enrichissent le modèle."
+    }
+  },
+  "pricing": {
+    "title": "Des tarifs adaptés à votre croissance",
+    "subtitle": "Commencez gratuitement, passez à l'échelle quand vous êtes prêt. Paiement local disponible.",
+    "free": {
+      "name": "Découverte",
+      "price": "0 DA",
+      "period": "/mois",
+      "description": "Pour tester la puissance de Makhtout.",
+      "features": ["10 pages/mois", "Mode Machine", "Export TXT", "Support communautaire"]
+    },
+    "pro": {
+      "name": "Pro",
+      "price": "2 900 DA",
+      "period": "/mois",
+      "description": "Pour les indépendants et les petites structures.",
+      "features": ["200 pages/mois", "Tous les modes IA", "Export PDF/DOCX", "Correction collaborative", "Support email"]
+    },
+    "enterprise": {
+      "name": "Entreprise",
+      "price": "Sur mesure",
+      "period": "",
+      "description": "Pour les administrations, banques et archives.",
+      "features": ["Pages illimitées", "API REST", "Déploiement on-premise", "SSO & audit", "Support prioritaire"]
+    },
+    "cta": "Choisir cette offre"
+  },
+  "auth": {
+    "loginTitle": "Connexion",
+    "loginDescription": "Connectez-vous à votre compte Makhtout",
+    "registerTitle": "Créer un compte",
+    "registerDescription": "Commencez votre essai gratuit de 14 jours",
+    "email": "Email",
+    "password": "Mot de passe",
+    "fullName": "Nom complet",
+    "loginButton": "Se connecter",
+    "registerButton": "S'inscrire",
+    "loggingIn": "Connexion...",
+    "registering": "Inscription...",
+    "noAccount": "Pas encore de compte ?",
+    "hasAccount": "Déjà un compte ?",
+    "login": "Se connecter",
+    "register": "S'inscrire"
+  },
+  "dashboard": {
+    "title": "Mes documents",
+    "subtitle": "Gérez et transcrivez vos manuscrits",
+    "newDocument": "Nouveau document",
+    "noDocuments": "Aucun document pour le moment.",
+    "uploadFirst": "Téléchargez votre premier document pour commencer.",
+    "upload": "Télécharger",
+    "status": {
+      "pending": "En attente",
+      "uploaded": "Téléchargé",
+      "processed": "Transcrit",
+      "failed": "Échec"
+    }
+  },
+  "document": {
+    "back": "Retour au tableau de bord",
+    "runOcr": "Lancer l'OCR",
+    "processing": "Traitement en cours...",
+    "transcription": "Transcription",
+    "corrected": "Corrigée",
+    "saveCorrection": "Sauvegarder la correction",
+    "language": "Langue",
+    "mode": "Mode de reconnaissance",
+    "confidence": "Confiance",
+    "processingTime": "Temps de traitement",
+    "noTranscription": "Aucune transcription. Lancez l'OCR pour commencer."
+  },
+  "uploader": {
+    "title": "Télécharger un document",
+    "dragDrop": "Glissez-déposez votre fichier ici",
+    "orClick": "ou cliquez pour parcourir",
+    "supported": "PDF, PNG, JPG, TIFF jusqu'à 20 Mo",
+    "languageHint": "Langue du document"
+  },
+  "howItWorks": {
+    "title": "Comment ça marche ?",
+    "subtitle": "De l'image au texte éditable en quelques clics",
+    "upload": {
+      "title": "Téléchargez",
+      "description": "Importez une image, un PDF ou prenez une photo de votre manuscrit."
+    },
+    "recognize": {
+      "title": "Laissez l'IA lire",
+      "description": "Notre moteur OCR/HTR reconnaît l'arabe et le français, même manuscrit."
+    },
+    "correct": {
+      "title": "Corrigez",
+      "description": "Validez ou corrigez le texte. L'IA vous suggère les mots douteux."
+    },
+    "export": {
+      "title": "Exportez",
+      "description": "Récupérez votre transcription en TXT, PDF ou DOCX."
+    }
+  },
+  "useCases": {
+    "title": "Pour qui ?",
+    "subtitle": "Des cas d'usage concrets pour administrations, chercheurs et entreprises",
+    "archives": {
+      "title": "Archives & bibliothèques",
+      "description": "Numérisez et indexez vos registres d'état civil, contrats et manuscrits anciens."
+    },
+    "research": {
+      "title": "Recherche scientifique",
+      "description": "Transcrivez des sources historiques arabes et françaises pour vos travaux académiques."
+    },
+    "administration": {
+      "title": "Administrations",
+      "description": "Automatisez la saisie de formulaires manuscrits tout en gardant la souveraineté des données."
+    },
+    "banks": {
+      "title": "Banques & assurances",
+      "description": "Numérisez dossiers clients, chèques et documents manuscrits en toute conformité."
+    }
+  },
+  "testimonials": {
+    "title": "Ils nous font confiance",
+    "subtitle": "Des archivistes, chercheurs et administrations au Maghreb",
+    "archivist": {
+      "quote": "Makhtout nous a permis de numériser des registres d'état civil impossibles à indexer manuellement.",
+      "name": "Karim B.",
+      "role": "Archiviste, Alger"
+    },
+    "researcher": {
+      "quote": "La reconnaissance de l'arabe manuscrit est impressionnante. Un gain de temps énorme pour mes recherches.",
+      "name": "Dr. Amina L.",
+      "role": "Chercheuse en histoire"
+    },
+    "administration": {
+      "quote": "La souveraineté des données était notre critère numéro un. Makhtout répond parfaitement à ce besoin.",
+      "name": "Sofiane T.",
+      "role": "Responsable SI"
+    }
+  },
+  "faq": {
+    "title": "Questions fréquentes",
+    "subtitle": "Tout ce que vous devez savoir avant de commencer",
+    "data": {
+      "question": "Où sont stockées mes données ?",
+      "answer": "Sur votre propre serveur dédié. Aucune image ni transcription n'est envoyée à un service cloud externe."
+    },
+    "languages": {
+      "question": "Quelles langues sont supportées ?",
+      "answer": "L'arabe et le français, incluant les manuscrits, les documents imprimés et les registres anciens."
+    },
+    "payment": {
+      "question": "Comment payer depuis l'Algérie ?",
+      "answer": "Vous pouvez payer par Chargily (CIB, Edahabia, D17) ou par virement bancaire/CP pour les comptes Entreprise."
+    },
+    "free": {
+      "question": "Puis-je tester gratuitement ?",
+      "answer": "Oui, le plan Découverte inclut 10 pages par mois, sans carte bancaire."
+    }
+  },
+  "footer": {
+    "tagline": "L'IA au service de la mémoire écrite du Maghreb.",
+    "copyright": "© 2024 Makhtout. Tous droits réservés."
+  }
+}
