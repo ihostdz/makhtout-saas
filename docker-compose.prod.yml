@@ -95,7 +95,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-https://makhtout.pro/api}
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-https://makhtout.pro}
         NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-https://makhtout.pro}
         NEXT_PUBLIC_APP_NAME: ${NEXT_PUBLIC_APP_NAME:-Makhtout}
     container_name: makhtout_frontend
