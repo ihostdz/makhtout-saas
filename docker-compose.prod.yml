@@ -1,0 +1,180 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: makhtout_postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-makhtout}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-makhtout_secret}
+      POSTGRES_DB: ${POSTGRES_DB:-makhtout_db}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-makhtout} -d ${POSTGRES_DB:-makhtout_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - makhtout_network
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: makhtout_redis
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - makhtout_network
+    restart: unless-stopped
+
+  minio:
+    image: minio/minio:RELEASE.2024-08-03T04-33-35Z
+    container_name: makhtout_minio
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY:-makhtout}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY:-makhtout_secret}
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - makhtout_network
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: makhtout_backend
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://makhtout:makhtout_secret@postgres:5432/makhtout_db}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+      MINIO_ENDPOINT: ${MINIO_ENDPOINT:-minio:9000}
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-makhtout}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-makhtout_secret}
+      MINIO_BUCKET: ${MINIO_BUCKET:-documents}
+      SECRET_KEY: ${SECRET_KEY:-super_secret_key_change_in_production}
+      ALGORITHM: ${ALGORITHM:-HS256}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES:-30}
+      FRONTEND_URL: ${FRONTEND_URL:-https://makhtout.pro}
+      CHARGILY_API_KEY: ${CHARGILY_API_KEY:-}
+      CHARGILY_SECRET: ${CHARGILY_SECRET:-}
+      PAYPAL_CLIENT_ID: ${PAYPAL_CLIENT_ID:-}
+      PAYPAL_CLIENT_SECRET: ${PAYPAL_CLIENT_SECRET:-}
+    volumes:
+      - ai_models:/app/models
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - makhtout_network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-https://makhtout.pro/api}
+        NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-https://makhtout.pro}
+        NEXT_PUBLIC_APP_NAME: ${NEXT_PUBLIC_APP_NAME:-Makhtout}
+    container_name: makhtout_frontend
+    environment:
+      NODE_ENV: production
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - makhtout_network
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: makhtout_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      frontend:
+        condition: service_healthy
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - makhtout_network
+    restart: unless-stopped
+
+  # Service one-shot pour migrations et création admin
+  init:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: makhtout_init
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://makhtout:makhtout_secret@postgres:5432/makhtout_db}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+      MINIO_ENDPOINT: ${MINIO_ENDPOINT:-minio:9000}
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-makhtout}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-makhtout_secret}
+      MINIO_BUCKET: ${MINIO_BUCKET:-documents}
+      SECRET_KEY: ${SECRET_KEY:-super_secret_key_change_in_production}
+    volumes:
+      - ai_models:/app/models
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+      backend:
+        condition: service_healthy
+    networks:
+      - makhtout_network
+    command: >
+      sh -c "python -m scripts.create_admin ${ADMIN_EMAIL:-admin@makhtout.pro} '${ADMIN_PASSWORD:-MakhtoutAdmin2024!}' -n 'Administrateur Makhtout' || true"
+    profiles:
+      - init
+
+volumes:
+  postgres_data:
+  redis_data:
+  minio_data:
+  ai_models:
+
+networks:
+  makhtout_network:
+    driver: bridge

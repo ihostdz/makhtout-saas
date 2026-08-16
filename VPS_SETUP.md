@@ -26,17 +26,17 @@ Tapez le mot de passe fourni.
 
 ---
 
-## Version rapide — Script automatique
+## Version rapide — Script automatique complet
 
-Si vous êtes déjà connecté en `root` et que votre domaine pointe vers le VPS, vous pouvez utiliser le script automatisé :
+Si vous êtes déjà connecté en `root` et que votre domaine pointe vers le VPS, utilisez le script final qui gère **tout** (Docker, pare-feu, SSL, backups, admin) :
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/VOTRE_COMPTE/makhtout/main/scripts/setup-vps.sh -o setup-vps.sh
-chmod +x setup-vps.sh
-./setup-vps.sh
+curl -fsSL https://raw.githubusercontent.com/ihostdz/makhtout/main/scripts/setup-vps-final.sh -o setup-vps-final.sh
+chmod +x setup-vps-final.sh
+./setup-vps-final.sh
 ```
 
-> Remplacez `VOTRE_COMPTE/makhtout` par votre dépôt GitHub. Le script configure Docker, le pare-feu, Nginx, SSL, les sauvegardes et crée le premier admin.
+Le script dure **20 à 40 minutes** selon la connexion (build lourd PyTorch/PaddleOCR).
 
 Puis reprenez directement à l'**Étape 14** pour vérifier l'accès.
 

@@ -2,8 +2,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import engine, Base
 from app.routers import auth, documents, ocr, admin, billing
+from app.config import get_settings
 
 Base.metadata.create_all(bind=engine)
+
+settings = get_settings()
 
 app = FastAPI(
     title="Makhtout API",
@@ -11,9 +14,16 @@ app = FastAPI(
     version="0.1.0",
 )
 
+# CORS dynamique basé sur FRONTEND_URL
+_origins = ["http://localhost:3000", "http://localhost:8000"]
+if settings.FRONTEND_URL:
+    _origins.append(settings.FRONTEND_URL)
+    if settings.FRONTEND_URL.startswith("https://"):
+        _origins.append(settings.FRONTEND_URL.replace("https://", "http://"))
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=list(set(_origins)),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -97,7 +97,7 @@ docker-compose down -v
 - CI/CD GitHub Actions (tests + build + déploiement SSH/Docker)
 - Guide de déploiement serveur dédié (voir `DEPLOY.md`)
 - Guide VPS Contabo step-by-step (voir `VPS_SETUP.md`)
-- Script d'installation automatique VPS (voir `scripts/setup-vps.sh`)
+- Script d'installation automatique VPS (voir `scripts/setup-vps-final.sh`)
 - Plan de lancement SEO & marketing (voir `MARKETING.md`)
 
 ## Développement
