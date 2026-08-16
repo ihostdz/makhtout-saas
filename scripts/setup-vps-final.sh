@@ -100,11 +100,20 @@ chown -R "$APP_USER:$APP_USER" "$APP_DIR"
 # ─────────────────────────────────────────────────────────────
 # Secrets
 # ─────────────────────────────────────────────────────────────
-log "Génération .env..."
-DB_PASS=$(gen_pass)
-MINIO_PASS=$(gen_pass)
-SECRET_KEY=$(openssl rand -hex 32)
-ADMIN_PASS=$(gen_pass)
+if [[ -f "$APP_DIR/.env" ]]; then
+    log "Fichier .env existant trouvé, utilisation des variables existantes."
+    source "$APP_DIR/.env"
+    DB_PASS="${POSTGRES_PASSWORD:-$(gen_pass)}"
+    MINIO_PASS="${MINIO_SECRET_KEY:-$(gen_pass)}"
+    SECRET_KEY="${SECRET_KEY:-$(openssl rand -hex 32)}"
+    ADMIN_PASS="${ADMIN_PASSWORD:-$(gen_pass)}"
+else
+    log "Génération .env..."
+    DB_PASS=$(gen_pass)
+    MINIO_PASS=$(gen_pass)
+    SECRET_KEY=$(openssl rand -hex 32)
+    ADMIN_PASS=$(gen_pass)
+fi
 
 cat > "$APP_DIR/.env" <<EOF
 DATABASE_URL=postgresql://makhtout:${DB_PASS}@postgres:5432/makhtout_db
