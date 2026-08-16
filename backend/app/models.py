@@ -151,7 +151,7 @@ class Payment(Base):
     status = Column(String, default="pending")
     provider = Column(String, nullable=False)
     provider_payment_id = Column(String, nullable=True)
-    metadata = Column(JSONB, nullable=True)
+    payment_metadata = Column(JSONB, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 

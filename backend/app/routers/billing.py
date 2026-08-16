@@ -91,7 +91,7 @@ def create_checkout(
                 amount=float(amount),
                 currency=currency,
                 provider="chargily",
-                metadata={"checkout_id": checkout.get("id")},
+                payment_metadata={"checkout_id": checkout.get("id")},
             )
             return {
                 "checkout_url": checkout.get("checkout_url"),
@@ -124,7 +124,7 @@ def create_checkout(
                 amount=plan.price_usd or 0,
                 currency="USD",
                 provider="paypal",
-                metadata={"paypal_subscription_id": subscription.get("id")},
+                payment_metadata={"paypal_subscription_id": subscription.get("id")},
             )
             return {
                 "checkout_url": subscription.get("links", [{}])[0].get("href"),
@@ -156,7 +156,7 @@ def submit_manual_payment(
         amount=request.amount,
         currency=request.currency,
         provider="manual",
-        metadata={
+        payment_metadata={
             "reference": request.reference,
             "notes": request.notes,
         },
@@ -223,7 +223,7 @@ async def paypal_webhook(request: Request, db: Session = Depends(get_db)):
         from app.models import Payment
         payment = db.query(Payment).filter(
             Payment.provider == "paypal",
-            Payment.metadata.contains({"paypal_subscription_id": subscription_id}),
+            Payment.payment_metadata.contains({"paypal_subscription_id": subscription_id}),
         ).first()
         if payment:
             billing = BillingService(db)

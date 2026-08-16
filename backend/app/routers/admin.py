@@ -134,7 +134,7 @@ def list_pending_payments(
             "amount": payment.amount,
             "currency": payment.currency,
             "provider": payment.provider,
-            "metadata": payment.metadata,
+            "payment_metadata": payment.payment_metadata,
             "created_at": payment.created_at.isoformat(),
         })
 

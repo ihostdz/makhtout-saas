@@ -135,14 +135,14 @@ class BillingService:
         self.db.add(log)
         self.db.commit()
 
-    def create_payment(self, user_id: str, plan_id: str, amount: float, currency: str, provider: str, metadata: dict = None) -> Payment:
+    def create_payment(self, user_id: str, plan_id: str, amount: float, currency: str, provider: str, payment_metadata: dict = None) -> Payment:
         payment = Payment(
             user_id=user_id,
             plan_id=plan_id,
             amount=amount,
             currency=currency,
             provider=provider,
-            metadata=metadata or {},
+            payment_metadata=payment_metadata or {},
         )
         self.db.add(payment)
         self.db.commit()
