@@ -87,13 +87,15 @@ dpkg-reconfigure -plow unattended-upgrades -f noninteractive || true
 # Projet
 # ─────────────────────────────────────────────────────────────
 log "Déploiement du projet..."
-mkdir -p "$APP_DIR"
-chown "$APP_USER:$APP_USER" "$APP_DIR"
 if [[ -d "$APP_DIR/.git" ]]; then
-    sudo -u "$APP_USER" bash -c "cd $APP_DIR && git pull origin main"
+    sudo -u "$APP_USER" bash -c "cd $APP_DIR && git reset --hard && git pull origin main"
+elif [[ -d "$APP_DIR" ]]; then
+    rm -rf "$APP_DIR"
+    sudo -u "$APP_USER" git clone "$REPO_URL" "$APP_DIR"
 else
     sudo -u "$APP_USER" git clone "$REPO_URL" "$APP_DIR"
 fi
+chown -R "$APP_USER:$APP_USER" "$APP_DIR"
 
 # ─────────────────────────────────────────────────────────────
 # Secrets
