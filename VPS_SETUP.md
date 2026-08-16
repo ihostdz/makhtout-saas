@@ -31,7 +31,7 @@ Tapez le mot de passe fourni.
 Si vous êtes déjà connecté en `root` et que votre domaine pointe vers le VPS, utilisez le script final qui gère **tout** (Docker, pare-feu, SSL, backups, admin) :
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ihostdz/makhtout/main/scripts/setup-vps-final.sh -o setup-vps-final.sh
+curl -fsSL https://raw.githubusercontent.com/ihostdz/makhtout-saas/main/scripts/setup-vps-final.sh -o setup-vps-final.sh
 chmod +x setup-vps-final.sh
 ./setup-vps-final.sh
 ```

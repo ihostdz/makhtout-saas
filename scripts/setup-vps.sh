@@ -21,7 +21,7 @@ set -euo pipefail
 DOMAIN="makhtout.pro"
 APP_USER="makhtout"
 APP_DIR="/opt/makhtout"
-REPO_URL="https://github.com/VOTRE_COMPTE/makhtout.git"
+REPO_URL="https://github.com/ihostdz/makhtout-saas.git"
 ADMIN_EMAIL="admin@makhtout.pro"
 
 # ─────────────────────────────────────────────────────────────
