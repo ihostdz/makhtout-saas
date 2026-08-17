@@ -5,6 +5,7 @@ import { locales } from '@/navigation'
 import { AuthProvider } from '@/context/AuthContext'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import '../globals.css'
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }))
