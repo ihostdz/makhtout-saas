@@ -1,3 +1,4 @@
+import os
 import time
 import io
 from typing import List, Dict, Any, Optional
@@ -5,6 +6,11 @@ from PIL import Image, ImageEnhance, ImageFilter
 import numpy as np
 import cv2
 from app.services.language_service import language_service
+
+# Désactive MKL-DNN/oneDNN qui plante sur certaines configs CPU/VPS
+os.environ.setdefault('FLAGS_use_mkldnn', 'False')
+os.environ.setdefault('OMP_NUM_THREADS', '1')
+os.environ.setdefault('KMP_DUPLICATE_LIB_OK', 'TRUE')
 
 
 class OCRService:
